@@ -28,11 +28,8 @@ public class DatabaseHandler {
             PreparedStatement ps = con.prepareStatement("SELECT id FROM users WHERE username = ? AND password = ?");
             ps.setString(1, username);
             ps.setString(2, password);
-            System.out.println("PS");
             ResultSet rs = ps.executeQuery();
-            System.out.println("RS");
             if(rs.next()) {
-                System.out.println("id");
                 userId = rs.getInt(1);
             }
             con.close();
