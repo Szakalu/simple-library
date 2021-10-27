@@ -35,7 +35,6 @@ public class DatabaseHandler {
             con.close();
         } catch (SQLException e) {
             userId = -2;
-            MessageHandler.showWarningMessage(null, "Database connection problem", "Database Error");
         }
         return userId;
     }

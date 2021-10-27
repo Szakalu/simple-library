@@ -22,11 +22,16 @@ public class LoginController {
     
     public void login(Login login){
         int id = DatabaseHandler.login(login.getUsername(), Hasher.hash(login.getPassword()));
-        if(id == -1){
-            MessageHandler.showWarningMessage(view ,"Wrong username or password", "Login failed");
-        }
-        else{
-            MessageHandler.showInfoMessage(view , "Login Success", "Login Success");
+        switch (id) {
+            case -1:
+                MessageHandler.showWarningMessage(view ,"Wrong username or password", "Login failed");
+                break;
+            case -2:
+                MessageHandler.showWarningMessage(null, "Database connection problem", "Database Error");
+                break;
+            default:
+                MessageHandler.showInfoMessage(view , "Login Success", "Login Success");
+                break;
         }
     }
 }
