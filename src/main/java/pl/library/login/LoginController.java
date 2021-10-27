@@ -26,7 +26,7 @@ public class LoginController {
             MessageHandler.showWarningMessage(view ,"Wrong username or password", "Login failed");
         }
         else{
-            MessageHandler.showWarningMessage(view ,"NICE", "NICE");
+            MessageHandler.showInfoMessage(view , "Login Success", "Login Success");
         }
     }
 }

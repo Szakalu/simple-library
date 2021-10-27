@@ -53,7 +53,6 @@ public class LoginView extends JFrame {
         jButtonLogin.setText("Login");
         jButtonLogin.addActionListener((e) -> {
         controller.login(new Login(jTextFieldUserName.getText(), jPasswordFieldPassword.getPassword()));});
-        
     }
 
     /**
