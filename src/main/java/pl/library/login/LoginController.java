@@ -4,6 +4,10 @@
  */
 package pl.library.login;
 
+import pl.library.database.DatabaseHandler;
+import pl.library.hash.Hasher;
+import pl.library.message.MessageHandler;
+
 /**
  *
  * @author Jacek
@@ -16,5 +20,13 @@ public class LoginController {
         this.view = view;
     }
     
-    
+    public void login(Login login){
+        int id = DatabaseHandler.login(login.getUsername(), Hasher.hash(login.getPassword()));
+        if(id == -1){
+            MessageHandler.showWarningMessage(view ,"Wrong username or password", "Login failed");
+        }
+        else{
+            MessageHandler.showWarningMessage(view ,"NICE", "NICE");
+        }
+    }
 }
