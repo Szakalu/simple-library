@@ -14,25 +14,44 @@ import pl.library.message.MessageHandler;
  */
 public class LoginController {
     
-    private LoginView view;
+    private final LoginView view;
 
     public LoginController(LoginView view) {
         this.view = view;
     }
     
     public void login(Login login){
+        if(login.getUsername().length() < 3){
+            tooShortLoginData("Username");
+            return;
+        }
+        else if(login.getUsername().length() > 30){
+            tooLongLoginData("Username");
+            return;
+        }
+        if(login.getPassword().length < 3){
+            tooLongLoginData("Password");
+            return;
+        }
+        else if(login.getPassword().length > 30){
+            tooLongLoginData("Password");
+            return;
+        }
+        
         int id = DatabaseHandler.login(login.getUsername(), Hasher.hash(login.getPassword()));
         switch (id) {
-            case -1:
-                wrongLoginData();
-                break;
-            case -2:
-                databaseError();
-                break;
-            default:
-                successfulLogin();
-                break;
+            case -1 -> wrongLoginData();
+            case -2 -> databaseError();
+            default -> successfulLogin();
         }
+    }
+    
+    private void tooShortLoginData(String dataType){
+        MessageHandler.showWarningMessage(view ,dataType + " is to short", dataType + " error");
+    }
+    
+    private void tooLongLoginData(String dataType){
+        MessageHandler.showWarningMessage(view ,dataType + " is to long",dataType + " error");
     }
     
     private void wrongLoginData(){
