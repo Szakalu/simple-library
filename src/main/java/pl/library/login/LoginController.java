@@ -30,7 +30,7 @@ public class LoginController {
             return;
         }
         if(login.getPassword().length < 3){
-            tooLongLoginData("Password");
+            tooShortLoginData("Password");
             return;
         }
         else if(login.getPassword().length > 30){
