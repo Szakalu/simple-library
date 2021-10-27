@@ -5,7 +5,11 @@
 package pl.library.login;
 
 import java.awt.Font;
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 
 
 public class LoginView extends JFrame {
@@ -55,6 +59,36 @@ public class LoginView extends JFrame {
         controller.login(new Login(jTextFieldUserName.getText(), jPasswordFieldPassword.getPassword()));});
     }
 
+    public LoginController getController() {
+        return controller;
+    }
+
+    public JButton getJButtonLogin() {
+        return jButtonLogin;
+    }
+
+    public JLabel getJLabelLogin() {
+        return jLabelLogin;
+    }
+
+    public JLabel getJLabelPassword() {
+        return jLabelPassword;
+    }
+
+    public JLabel getJLabelUserName() {
+        return jLabelUserName;
+    }
+
+    public JPasswordField getJPasswordFieldPassword() {
+        return jPasswordFieldPassword;
+    }
+
+    public JTextField getJTextFieldUserName() {
+        return jTextFieldUserName;
+    }
+
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
