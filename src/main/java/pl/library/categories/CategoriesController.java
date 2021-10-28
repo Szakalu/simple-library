@@ -5,6 +5,7 @@
 package pl.library.categories;
 
 import pl.library.login.LoginView;
+import pl.library.students.StudentsView;
 
 /**
  *
@@ -21,6 +22,11 @@ public class CategoriesController {
     public void logout(){
         new LoginView().setVisible(true);
         view.dispose();
+    }
+    
+    public void students(){
+        view.setEnabled(false);
+        new StudentsView(view).setVisible(true);
     }
     
 }

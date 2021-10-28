@@ -62,7 +62,7 @@ public class CategoriesView extends JFrame {
     }
     
     private void clickButtonStudents(){
-        //TODO
+        controller.students();
     }
     
     private void setJButtonBorrows(){
