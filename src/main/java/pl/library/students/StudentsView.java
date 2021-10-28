@@ -1,11 +1,14 @@
 package pl.library.students;
 
+import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -20,11 +23,13 @@ public class StudentsView extends JFrame {
 
     private final StudentsController controller;
     private final JFrame parentFrame;
+    private DefaultTableModel model;
     
     public StudentsView(JFrame parentFrame) {
         initComponents();
         this.parentFrame = parentFrame;
         controller = new StudentsController(this);
+        setStudentsViewComponents();
     }
     
     public void setStudentsViewComponents(){
@@ -36,6 +41,7 @@ public class StudentsView extends JFrame {
         setjTextFieldFirstName();
         setjTextFieldId();
         setjTextFieldLastName();
+        setjTableStudents();
     }
 
     public void setjButtonAdd() {
@@ -51,11 +57,11 @@ public class StudentsView extends JFrame {
     private void setjButtonSearch() {
         jButtonSearch.setText("Search");
         jButtonSearch.addActionListener((e) -> {
-            clickButtonSearch(jButtonSearch);});
+            clickButtonSearch();});
     }
     
-    private void clickButtonSearch(JButton jButtonSearch) {
-        //TODO
+    private void clickButtonSearch() {
+        controller.getStudents(jTextFieldId.getText(), jTextFieldFirstName.getText(), jTextFieldLastName.getText());
     }
 
     private void setjLabelFirstName() {
@@ -80,6 +86,18 @@ public class StudentsView extends JFrame {
 
     public void setjTextFieldLastName() {
         jTextFieldLastName.setText("");
+    }
+    
+    public void setjTableStudents(){
+        model = new DefaultTableModel(0,0);
+        String [] header = new String [] {"Id", "First name", "Last name", "Birthdate"};
+        model.setColumnIdentifiers(header);
+        jTableStudents.setModel(model);
+        
+    }
+    
+    public DefaultTableModel getDefaultTableModel(){
+        return model;
     }
 
     public JFrame getParentFrame() {
@@ -117,7 +135,8 @@ public class StudentsView extends JFrame {
     public JTextField getjTextFieldLastName() {
         return jTextFieldLastName;
     }
-
+    
+    
     @Override
     public void dispose() {
         controller.dispose();
@@ -142,6 +161,7 @@ public class StudentsView extends JFrame {
         jLabelLastName = new javax.swing.JLabel();
         jButtonSearch = new javax.swing.JButton();
         jScrollPaneStudents = new javax.swing.JScrollPane();
+        jTableStudents = new javax.swing.JTable();
         jPanelBottonBar = new javax.swing.JPanel();
         jButtonAdd = new javax.swing.JButton();
 
@@ -178,12 +198,14 @@ public class StudentsView extends JFrame {
                     .addComponent(jLabelFirstName))
                 .addGap(18, 18, 18)
                 .addGroup(jPanelSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelLastName)
+                    .addGroup(jPanelSearchLayout.createSequentialGroup()
+                        .addComponent(jLabelLastName)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanelSearchLayout.createSequentialGroup()
                         .addComponent(jTextFieldLastName, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButtonSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jButtonSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanelSearchLayout.setVerticalGroup(
             jPanelSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -201,6 +223,19 @@ public class StudentsView extends JFrame {
                     .addComponent(jButtonSearch))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        jTableStudents.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPaneStudents.setViewportView(jTableStudents);
 
         javax.swing.GroupLayout jPanelBottonBarLayout = new javax.swing.GroupLayout(jPanelBottonBar);
         jPanelBottonBar.setLayout(jPanelBottonBarLayout);
@@ -220,7 +255,7 @@ public class StudentsView extends JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanelSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jScrollPaneStudents)
+            .addComponent(jScrollPaneStudents, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanelBottonBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -253,6 +288,7 @@ public class StudentsView extends JFrame {
     private javax.swing.JPanel jPanelBottonBar;
     private javax.swing.JPanel jPanelSearch;
     private javax.swing.JScrollPane jScrollPaneStudents;
+    private javax.swing.JTable jTableStudents;
     private javax.swing.JTextField jTextFieldFirstName;
     private javax.swing.JTextField jTextFieldId;
     private javax.swing.JTextField jTextFieldLastName;

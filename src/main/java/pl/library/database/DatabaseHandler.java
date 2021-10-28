@@ -10,7 +10,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import pl.library.message.MessageHandler;
+import pl.library.students.Student;
 
 /**
  *
@@ -32,10 +34,21 @@ public class DatabaseHandler {
             if(rs.next()) {
                 userId = rs.getInt(1);
             }
-            con.close();
         } catch (SQLException e) {
             userId = -2;
         }
         return userId;
+    }
+    
+    public static ArrayList<Student> getStudents(int id, String firstName, String lastName) throws SQLException{
+        ArrayList<Student> students = new ArrayList<>();
+            Connection con = DriverManager.getConnection(URL, LOGIN, PASSWORD);
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM students WHERE firstname LIKE (?)");
+            ps.setString(1, "%"+firstName+"%");
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()) {
+                students.add(new Student(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getDate(4).toString()));
+            }
+        return students;
     }
 }
