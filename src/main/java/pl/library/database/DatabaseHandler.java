@@ -42,13 +42,34 @@ public class DatabaseHandler {
     
     public static ArrayList<Student> getStudents(int id, String firstName, String lastName) throws SQLException{
         ArrayList<Student> students = new ArrayList<>();
-            Connection con = DriverManager.getConnection(URL, LOGIN, PASSWORD);
-            PreparedStatement ps = con.prepareStatement("SELECT * FROM students WHERE firstname LIKE (?)");
-            ps.setString(1, "%"+firstName+"%");
-            ResultSet rs = ps.executeQuery();
-            while(rs.next()) {
-                students.add(new Student(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getDate(4).toString()));
-            }
+        Connection con = DriverManager.getConnection(URL, LOGIN, PASSWORD);
+        PreparedStatement ps = con.prepareStatement("SELECT * FROM students WHERE id = ? AND firstname LIKE (?) AND lastname LIKE (?)");
+        ps.setInt(1, id);
+        ps.setString(2, "%"+firstName+"%");
+        ps.setString(3, "%"+lastName+"%");
+        ResultSet rs = ps.executeQuery();
+        while(rs.next()) {
+            students.add(new Student(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getDate(4).toString()));
+        }
+        rs.close();
+        ps.close();
+        con.close();
+        return students;
+    }
+    
+    public static ArrayList<Student> getStudents(String firstName, String lastName) throws SQLException{
+        ArrayList<Student> students = new ArrayList<>();
+        Connection con = DriverManager.getConnection(URL, LOGIN, PASSWORD);
+        PreparedStatement ps = con.prepareStatement("SELECT * FROM students WHERE firstname LIKE (?) AND lastname LIKE (?)");
+        ps.setString(1, "%"+firstName+"%");
+        ps.setString(2, "%"+lastName+"%");
+        ResultSet rs = ps.executeQuery();
+        while(rs.next()) {
+            students.add(new Student(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getDate(4).toString()));
+        }
+        rs.close();
+        ps.close();
+        con.close();
         return students;
     }
 }

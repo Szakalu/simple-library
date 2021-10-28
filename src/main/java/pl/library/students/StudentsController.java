@@ -22,14 +22,26 @@ public class StudentsController {
     }
     
     public void getStudents(String id, String firstName, String lastName){
-       ArrayList<Student> students;
+       ArrayList<Student> students = new ArrayList<>();
        try{
-            students = DatabaseHandler.getStudents(Integer.parseInt(id), firstName, lastName);
+           if(id.length() < 1){
+                students = DatabaseHandler.getStudents(firstName, lastName);
+           }
+           else{
+               if(isNumber(id)){
+                    students = DatabaseHandler.getStudents(Integer.parseInt(id), firstName, lastName);
+               }
+               else{
+                   MessageHandler.showWarningMessage(view, "Id must be a number", "Id error");
+                   return;
+               }
+               
+           }
        }catch(SQLException ex){
            MessageHandler.showWarningMessage(view, "Database problem", "Database error");
-           ex.printStackTrace();
            return;
        }
+       
        if(students.size() < 1){
            MessageHandler.showInfoMessage(view, "No students to display", "");
            return;
@@ -38,14 +50,22 @@ public class StudentsController {
        displayStudentsOnView(students);
     }
     
-    public void removeRowsFromeTableView(){
+    private boolean isNumber(String id){
+        try{
+            Integer.parseInt(id);
+        }catch(NumberFormatException ex){
+            return false;
+        }
+        return true;
+    }
+    private void removeRowsFromeTableView(){
         view.getDefaultTableModel().setRowCount(0);
     }
     
-    public void displayStudentsOnView(ArrayList<Student> students){
-        for(Student s: students){
+    private void displayStudentsOnView(ArrayList<Student> students){
+        students.forEach(s -> {
             view.getDefaultTableModel().addRow(s.dataToArray());
-        }
+        });
     }
     
     public void dispose(){
