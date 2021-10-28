@@ -4,6 +4,8 @@
  */
 package pl.library.categories;
 
+import pl.library.login.LoginView;
+
 /**
  *
  * @author Jacek
@@ -16,5 +18,9 @@ public class CategoriesController {
         this.view = view;
     }
     
+    public void logout(){
+        new LoginView().setVisible(true);
+        view.dispose();
+    }
     
 }

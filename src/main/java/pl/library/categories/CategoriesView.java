@@ -39,7 +39,7 @@ public class CategoriesView extends JFrame {
     }
     
     private void clickButtonLogout(){
-        //TODO
+        controller.logout();
     }
     
     private void setJLabelUser(){
