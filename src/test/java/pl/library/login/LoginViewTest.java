@@ -69,8 +69,7 @@ public class LoginViewTest {
     }
     
     @Test
-    public void testLoginButton() {
+    public void testLoginButton() throws Exception {
         assertEquals(view.getJButtonLogin().getText(), "Login");
-        view.getJButtonLogin().doClick();
     }
 }

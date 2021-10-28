@@ -55,8 +55,11 @@ public class LoginView extends JFrame {
     
     private void setLoginButton(){
         jButtonLogin.setText("Login");
-        jButtonLogin.addActionListener((e) -> {
-        controller.login(new Login(jTextFieldUserName.getText(), jPasswordFieldPassword.getPassword()));});
+        jButtonLogin.addActionListener((e) -> {buttonLoginClick();});
+    }
+    
+    private void buttonLoginClick(){
+        controller.login(new Login(jTextFieldUserName.getText(), jPasswordFieldPassword.getPassword()));
     }
 
     public LoginController getController() {
