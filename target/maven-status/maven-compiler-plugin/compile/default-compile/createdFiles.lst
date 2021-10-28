@@ -1,2 +1,8 @@
+pl\library\categories\CategoriesView.class
+pl\library\message\MessageHandler.class
+pl\library\database\DatabaseHandler.class
 pl\library\main\Main.class
+pl\library\login\Login.class
 pl\library\login\LoginView.class
+pl\library\login\LoginController.class
+pl\library\hash\Hasher.class
