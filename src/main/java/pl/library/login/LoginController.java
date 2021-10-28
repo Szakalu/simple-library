@@ -4,9 +4,11 @@
  */
 package pl.library.login;
 
+import pl.library.categories.CategoriesView;
 import pl.library.database.DatabaseHandler;
 import pl.library.hash.Hasher;
 import pl.library.message.MessageHandler;
+import pl.library.user.User;
 
 /**
  *
@@ -42,7 +44,7 @@ public class LoginController {
         switch (id) {
             case -1 -> wrongLoginData();
             case -2 -> databaseError();
-            default -> successfulLogin();
+            default -> successfulLogin(id, login.getUsername());
         }
     }
     
@@ -62,7 +64,9 @@ public class LoginController {
         MessageHandler.showWarningMessage(null, "Database connection problem", "Database Error");
     }
     
-    private void successfulLogin(){
-        MessageHandler.showInfoMessage(view , "Login Success", "Login Success");
+    private void successfulLogin(int id, String username){
+        User user = new User(id, username);
+        new CategoriesView(user).setVisible(true);
+        view.dispose();
     }
 }
