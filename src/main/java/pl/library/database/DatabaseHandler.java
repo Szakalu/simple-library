@@ -5,6 +5,7 @@
 package pl.library.database;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -71,5 +72,21 @@ public class DatabaseHandler {
         ps.close();
         con.close();
         return students;
+    }
+    
+    public static int addStudent(String firstName, String lastName, String birthdate){
+        int responseCode = -1;
+        try(Connection con = DriverManager.getConnection(URL, LOGIN, PASSWORD);) {
+            PreparedStatement ps = con.prepareStatement("INSERT INTO students (firstname, lastname, birthdate) VALUE (?, ?, ?)");
+            ps.setString(1, firstName);
+            ps.setString(2, lastName);
+            ps.setDate(3, Date.valueOf(birthdate));
+            ps.executeUpdate();
+            responseCode = 1;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            responseCode = -2;
+        }
+        return responseCode;
     }
 }

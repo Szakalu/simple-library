@@ -11,6 +11,7 @@ import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import pl.library.database.DatabaseHandler;
 import pl.library.message.MessageHandler;
 
 /**
@@ -32,7 +33,17 @@ public class StudentAddController {
     public void addStudent(Student student){
         if(!validateStudentData(student)) return;
         
-        
+        int responseCode = DatabaseHandler.addStudent(student.getFirstName(), student.getLastName(), student.getBirthdate());
+        if(responseCode > 0){
+            MessageHandler.showInfoMessage(view, "New student " + student.toString() + " added to database", "Student added");
+            view.dispose();
+        }
+        else if(responseCode == -1){
+            MessageHandler.showWarningMessage(view, "Somthing goes wrong", "Adding student error");
+        }
+        else if(responseCode == -2){
+            MessageHandler.showWarningMessage(view, "Database problem", "Database error");
+        }
     }
     
     private boolean validateStudentData(Student student){
@@ -67,11 +78,34 @@ public class StudentAddController {
         }catch(ParseException ex){
             
         }
-        if(calendar.get(Calendar.YEAR) < 1900){
+        if(!validateStudentBirthdateMin(calendar)){
             MessageHandler.showWarningMessage(view, "Pick correct birthdate", "Birthdate error");
             return false;
         }
+        else if(!validateStudentBirthdateMax(calendar)){
+            MessageHandler.showWarningMessage(view, "Pick correct birthdate", "Birthdate error");
+            return false;
+        }
+        
         return true;
     }
     
+    private boolean validateStudentBirthdateMin(Calendar birthdate){
+        return birthdate.get(Calendar.YEAR) >= 1900;
+    }
+    
+    private boolean validateStudentBirthdateMax(Calendar calendar){
+        int birthdateYear = calendar.get(Calendar.YEAR);
+        int birthdateMonth = calendar.get(Calendar.MONTH);
+        int birthdateDay = calendar.get(Calendar.DAY_OF_MONTH);
+        
+        calendar = Calendar.getInstance();
+        System.out.println(calendar.get(Calendar.YEAR) + " " + calendar.get(Calendar.MONTH) + " " + calendar.get(Calendar.DAY_OF_MONTH) + " " + 
+                birthdateYear + " " + birthdateMonth + " " + birthdateDay);
+        if(calendar.get(Calendar.YEAR) < birthdateYear) return false;
+        else if(calendar.get(Calendar.YEAR) <= birthdateYear && calendar.get(Calendar.MONTH) < birthdateMonth) return false;
+        else if(calendar.get(Calendar.YEAR) <= birthdateYear && calendar.get(Calendar.MONTH) <= birthdateMonth 
+                && calendar.get(Calendar.DAY_OF_MONTH) < birthdateDay) return false;
+        return true;
+    }
 }

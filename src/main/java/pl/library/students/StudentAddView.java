@@ -11,6 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import pl.library.message.MessageHandler;
 
 /**
  *
@@ -50,6 +51,10 @@ public class StudentAddView extends JFrame {
         Student student = new Student();
         student.setFirstName(jTextFieldFirstName.getText());
         student.setLastName(jTextFieldLastName.getText());
+        if(jDateChooserBirthdate.getDate() == null){
+            MessageHandler.showWarningMessage(this, "Pick birthdate", "Birthdate error");
+            return;
+        }
         student.setBirthdate(formatData(jDateChooserBirthdate.getDate()));
         controller.addStudent(student);
     }
