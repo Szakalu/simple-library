@@ -68,6 +68,11 @@ public class StudentsController {
         });
     }
     
+    public void addStudent(){
+        view.setEnabled(false);
+        new StudentAddView(view).setVisible(true);
+    }
+    
     public void dispose(){
         view.getParentFrame().setEnabled(true);
     }

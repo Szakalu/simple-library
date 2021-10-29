@@ -1,10 +1,10 @@
 pl\library\categories\CategoriesView.class
-pl\library\categories\CategoriesController.class
 pl\library\message\MessageHandler.class
+pl\library\login\LoginView.class
+pl\library\user\User.class
+pl\library\hash\Hasher.class
+pl\library\categories\CategoriesController.class
 pl\library\database\DatabaseHandler.class
 pl\library\main\Main.class
 pl\library\login\Login.class
-pl\library\login\LoginView.class
-pl\library\user\User.class
 pl\library\login\LoginController.class
-pl\library\hash\Hasher.class

@@ -27,6 +27,7 @@ public class StudentsView extends JFrame {
     
     public StudentsView(JFrame parentFrame) {
         initComponents();
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.parentFrame = parentFrame;
         controller = new StudentsController(this);
         setStudentsViewComponents();
@@ -51,7 +52,7 @@ public class StudentsView extends JFrame {
     }
     
     private void clickButtonAdd(){
-        //TODO
+        controller.addStudent();
     }
     
     private void setjButtonSearch() {

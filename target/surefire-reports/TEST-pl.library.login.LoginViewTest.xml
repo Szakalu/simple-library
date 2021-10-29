@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="6" failures="0" name="pl.library.login.LoginViewTest" time="0.002" errors="0" skipped="0">
+<testsuite tests="6" failures="0" name="pl.library.login.LoginViewTest" time="0" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="java.vm.version" value="15.0.2+7-27"/>
@@ -44,7 +44,7 @@
     <property name="java.class.path" value="C:\Users\Jacek\Desktop\netbeans\java\maven\bin\..\boot\plexus-classworlds-2.6.0.jar"/>
     <property name="java.vm.specification.version" value="15"/>
     <property name="sun.arch.data.model" value="64"/>
-    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher -Dmaven.ext.class.path=C:\Users\Jacek\Desktop\netbeans\java\maven-nblib\netbeans-eventspy.jar -Dfile.encoding=UTF-8 test"/>
+    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher -Dmaven.ext.class.path=C:\Users\Jacek\Desktop\netbeans\java\maven-nblib\netbeans-eventspy.jar -Dfile.encoding=UTF-8 install"/>
     <property name="java.home" value="C:\Program Files\Java\jdk-15.0.2"/>
     <property name="user.language" value="pl"/>
     <property name="java.specification.vendor" value="Oracle Corporation"/>
@@ -59,10 +59,10 @@
     <property name="sun.cpu.endian" value="little"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase classname="pl.library.login.LoginViewTest" name="pl.library.login.LoginViewTest.testUserNameTextField" time="0"/>
-  <testcase classname="pl.library.login.LoginViewTest" name="pl.library.login.LoginViewTest.testLoginButton" time="0"/>
-  <testcase classname="pl.library.login.LoginViewTest" name="pl.library.login.LoginViewTest.testPasswordField" time="0.002"/>
-  <testcase classname="pl.library.login.LoginViewTest" name="pl.library.login.LoginViewTest.testPasswordLabel" time="0"/>
   <testcase classname="pl.library.login.LoginViewTest" name="pl.library.login.LoginViewTest.testLoginLabel" time="0"/>
+  <testcase classname="pl.library.login.LoginViewTest" name="pl.library.login.LoginViewTest.testPasswordField" time="0"/>
   <testcase classname="pl.library.login.LoginViewTest" name="pl.library.login.LoginViewTest.testUserNameLabel" time="0"/>
+  <testcase classname="pl.library.login.LoginViewTest" name="pl.library.login.LoginViewTest.testPasswordLabel" time="0"/>
+  <testcase classname="pl.library.login.LoginViewTest" name="pl.library.login.LoginViewTest.testLoginButton" time="0"/>
+  <testcase classname="pl.library.login.LoginViewTest" name="pl.library.login.LoginViewTest.testUserNameTextField" time="0"/>
 </testsuite>
