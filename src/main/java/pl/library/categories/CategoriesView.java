@@ -7,6 +7,7 @@ package pl.library.categories;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JFrame;
+import pl.library.students.Student;
 import pl.library.user.User;
 /**
  *
@@ -16,6 +17,7 @@ public class CategoriesView extends JFrame {
 
     private final User user;
     private final CategoriesController controller;
+    private Student student;
     
     public CategoriesView(User user) {
         initComponents();
@@ -28,6 +30,7 @@ public class CategoriesView extends JFrame {
     private void setCategoriesViewComponents(){
         setJButtonLogout();
         setJLabelUser();
+        setjLabelStudent();
         setJButtonBooks();
         setJButtonStudents();
         setJButtonBorrows();
@@ -75,6 +78,15 @@ public class CategoriesView extends JFrame {
         //TODO
     }
 
+    public void setjLabelStudent() {
+        if(student == null) jLabelStudent.setText("Chosen student: NoN");
+        else jLabelStudent.setText("Chosen student: " + student.toStringFull());
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
+    }
+
     public JButton getjButtonBooks() {
         return jButtonBooks;
     }
@@ -110,6 +122,7 @@ public class CategoriesView extends JFrame {
         jButtonStudents = new javax.swing.JButton();
         jLabelUser = new javax.swing.JLabel();
         jButtonBooks = new javax.swing.JButton();
+        jLabelStudent = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -122,6 +135,8 @@ public class CategoriesView extends JFrame {
         jLabelUser.setText("jLabel1");
 
         jButtonBooks.setText("jButton1");
+
+        jLabelStudent.setText("jLabel1");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -141,7 +156,10 @@ public class CategoriesView extends JFrame {
                             .addComponent(jButtonStudents, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
                             .addComponent(jButtonBooks, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jButtonBorrows, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(164, 164, 164))))
+                        .addGap(164, 164, 164))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabelStudent)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -150,7 +168,9 @@ public class CategoriesView extends JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonLogout)
                     .addComponent(jLabelUser))
-                .addGap(29, 29, 29)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabelStudent)
+                .addGap(9, 9, 9)
                 .addComponent(jButtonStudents, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButtonBooks, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -168,6 +188,7 @@ public class CategoriesView extends JFrame {
     private javax.swing.JButton jButtonBorrows;
     private javax.swing.JButton jButtonLogout;
     private javax.swing.JButton jButtonStudents;
+    private javax.swing.JLabel jLabelStudent;
     private javax.swing.JLabel jLabelUser;
     // End of variables declaration//GEN-END:variables
 }

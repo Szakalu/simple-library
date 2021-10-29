@@ -84,15 +84,21 @@ public class StudentsController {
         }
     }
     
-    public int removeStudentFromDatabase(Student student){
+    private int removeStudentFromDatabase(Student student){
         int response = DatabaseHandler.removeStudent(student.getId(), student.getFirstName(), student.getLastName());
         if(response == -1) MessageHandler.showWarningMessage(view, "Student does not exist in the database", "");
         else if(response == -2 ) MessageHandler.showStandardDatabaseErrorMessage(view);
         return response;
     }
     
-    public void removeStudentFromTable(int row){
+    private void removeStudentFromTable(int row){
         view.getDefaultTableModel().removeRow(row);
+    }
+    
+    public void chooseStudent(Student student){
+        view.getParentFrame().setStudent(student);
+        view.getParentFrame().setjLabelStudent();
+        MessageHandler.showInfoMessage(view, "Selected student " + student.toStringFull(), "");
     }
     
     public void dispose(){

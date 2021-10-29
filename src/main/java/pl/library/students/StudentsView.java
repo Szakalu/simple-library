@@ -9,6 +9,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+import pl.library.categories.CategoriesView;
 import pl.library.message.MessageHandler;
 
 /*
@@ -23,10 +24,10 @@ import pl.library.message.MessageHandler;
 public class StudentsView extends JFrame {
 
     private final StudentsController controller;
-    private final JFrame parentFrame;
+    private final CategoriesView parentFrame;
     private DefaultTableModel model;
     
-    public StudentsView(JFrame parentFrame) {
+    public StudentsView(CategoriesView parentFrame) {
         initComponents();
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.parentFrame = parentFrame;
@@ -108,10 +109,13 @@ public class StudentsView extends JFrame {
     }
     
     public void clickButtonChoose() {
-        //TODO
         int row = jTableStudents.getSelectedRow();
-        System.out.println("Choosing " + jTableStudents.getValueAt(row, 0) + " " + jTableStudents.getValueAt(row, 1) + 
-                " " + jTableStudents.getValueAt(row, 2) + " " + jTableStudents.getValueAt(row, 3));
+        if(row == -1){
+            MessageHandler.showWarningMessage(this, "Select student", "Select error");
+            return;
+        }
+        controller.chooseStudent(new Student((int) jTableStudents.getValueAt(row, 0), jTableStudents.getValueAt(row, 1).toString(), jTableStudents.getValueAt(row, 2).toString(),
+        jTableStudents.getValueAt(row, 3).toString()));
     } 
 
     public void setjButtonRemove() {
@@ -126,8 +130,8 @@ public class StudentsView extends JFrame {
             MessageHandler.showWarningMessage(this, "Select student", "Select error");
             return;
         }
-        controller.removeStudent(new Student((int) jTableStudents.getValueAt(row, 0), jTableStudents.getValueAt(row, 1).toString(), jTableStudents.getValueAt(row, 2).toString(),
-        jTableStudents.getValueAt(row, 3).toString()), row);
+        controller.removeStudent(new Student((int) jTableStudents.getValueAt(row, 0), jTableStudents.getValueAt(row, 1).toString(), 
+                jTableStudents.getValueAt(row, 2).toString(), jTableStudents.getValueAt(row, 3).toString()), row);
         
     }
     
@@ -135,7 +139,7 @@ public class StudentsView extends JFrame {
         return model;
     }
 
-    public JFrame getParentFrame() {
+    public CategoriesView getParentFrame() {
         return parentFrame;
     }
 

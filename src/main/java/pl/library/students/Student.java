@@ -67,6 +67,10 @@ public class Student {
         return firstName + " " + lastName + " " + birthdate;
     }
     
+    public String toStringFull() {
+        return id + " " + firstName + " " + lastName + " " + birthdate;
+    }
+    
     
     
 }
