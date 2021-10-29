@@ -42,7 +42,7 @@ public class StudentAddController {
             MessageHandler.showWarningMessage(view, "Somthing goes wrong", "Adding student error");
         }
         else if(responseCode == -2){
-            MessageHandler.showWarningMessage(view, "Database problem", "Database error");
+            MessageHandler.showStandardDatabaseErrorMessage(view);
         }
     }
     

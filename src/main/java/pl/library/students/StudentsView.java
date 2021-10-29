@@ -9,6 +9,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+import pl.library.message.MessageHandler;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -43,6 +44,8 @@ public class StudentsView extends JFrame {
         setjTextFieldId();
         setjTextFieldLastName();
         setjTableStudents();
+        setjButtonRemove();
+        setjButtonChoose();
     }
 
     public void setjButtonAdd() {
@@ -94,6 +97,37 @@ public class StudentsView extends JFrame {
         String [] header = new String [] {"Id", "First name", "Last name", "Birthdate"};
         model.setColumnIdentifiers(header);
         jTableStudents.setModel(model);
+        jTableStudents.setDefaultEditor(Object.class, null);
+        
+    }
+
+    public void setjButtonChoose() {
+        jButtonChoose.setText("Choose");
+        jButtonChoose.addActionListener((e) -> {
+        clickButtonChoose();});
+    }
+    
+    public void clickButtonChoose() {
+        //TODO
+        int row = jTableStudents.getSelectedRow();
+        System.out.println("Choosing " + jTableStudents.getValueAt(row, 0) + " " + jTableStudents.getValueAt(row, 1) + 
+                " " + jTableStudents.getValueAt(row, 2) + " " + jTableStudents.getValueAt(row, 3));
+    } 
+
+    public void setjButtonRemove() {
+        jButtonRemove.setText("Remove");
+        jButtonRemove.addActionListener((e) -> {
+        clickButtonRemove();});
+    }
+    
+    public void clickButtonRemove() {
+        int row = jTableStudents.getSelectedRow();
+        if(row == -1){
+            MessageHandler.showWarningMessage(this, "Select student", "Select error");
+            return;
+        }
+        controller.removeStudent(new Student((int) jTableStudents.getValueAt(row, 0), jTableStudents.getValueAt(row, 1).toString(), jTableStudents.getValueAt(row, 2).toString(),
+        jTableStudents.getValueAt(row, 3).toString()), row);
         
     }
     
@@ -164,7 +198,9 @@ public class StudentsView extends JFrame {
         jScrollPaneStudents = new javax.swing.JScrollPane();
         jTableStudents = new javax.swing.JTable();
         jPanelBottonBar = new javax.swing.JPanel();
+        jButtonRemove = new javax.swing.JButton();
         jButtonAdd = new javax.swing.JButton();
+        jButtonChoose = new javax.swing.JButton();
 
         jLabel1.setText("jLabel1");
 
@@ -205,7 +241,7 @@ public class StudentsView extends JFrame {
                     .addGroup(jPanelSearchLayout.createSequentialGroup()
                         .addComponent(jTextFieldLastName, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButtonSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(jButtonSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanelSearchLayout.setVerticalGroup(
@@ -238,18 +274,27 @@ public class StudentsView extends JFrame {
         ));
         jScrollPaneStudents.setViewportView(jTableStudents);
 
+        jButtonRemove.setText("jButton1");
+
         javax.swing.GroupLayout jPanelBottonBarLayout = new javax.swing.GroupLayout(jPanelBottonBar);
         jPanelBottonBar.setLayout(jPanelBottonBarLayout);
         jPanelBottonBarLayout.setHorizontalGroup(
             jPanelBottonBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 311, Short.MAX_VALUE)
+            .addGroup(jPanelBottonBarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButtonRemove, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanelBottonBarLayout.setVerticalGroup(
             jPanelBottonBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 46, Short.MAX_VALUE)
+            .addGroup(jPanelBottonBarLayout.createSequentialGroup()
+                .addComponent(jButtonRemove)
+                .addGap(0, 23, Short.MAX_VALUE))
         );
 
         jButtonAdd.setText("jButton1");
+
+        jButtonChoose.setText("jButton1");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -260,6 +305,8 @@ public class StudentsView extends JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanelBottonBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonChoose, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(84, 84, 84)
                 .addComponent(jButtonAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -272,7 +319,8 @@ public class StudentsView extends JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanelBottonBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonAdd)))
+                    .addComponent(jButtonAdd)
+                    .addComponent(jButtonChoose)))
         );
 
         pack();
@@ -281,6 +329,8 @@ public class StudentsView extends JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAdd;
+    private javax.swing.JButton jButtonChoose;
+    private javax.swing.JButton jButtonRemove;
     private javax.swing.JButton jButtonSearch;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelFirstName;

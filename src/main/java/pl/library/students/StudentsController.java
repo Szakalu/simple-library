@@ -6,6 +6,7 @@ package pl.library.students;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import pl.library.database.DatabaseHandler;
 import pl.library.message.MessageHandler;
 
@@ -38,7 +39,7 @@ public class StudentsController {
                
            }
        }catch(SQLException ex){
-           MessageHandler.showWarningMessage(view, "Database problem", "Database error");
+           MessageHandler.showStandardDatabaseErrorMessage(view);
            return;
        }
        
@@ -71,6 +72,27 @@ public class StudentsController {
     public void addStudent(){
         view.setEnabled(false);
         new StudentAddView(view).setVisible(true);
+    }
+    
+    public void removeStudent(Student student, int row){
+        int optionPaneResponse = MessageHandler.createYesNoOptionPane(view, 
+                "Are you sure you want to delete student " + student.toString(), "Removing student");
+        if (optionPaneResponse == JOptionPane.YES_OPTION) {
+            int databaseResponse =  removeStudentFromDatabase(student);
+            if(databaseResponse != 1) return;
+            removeStudentFromTable(row);
+        }
+    }
+    
+    public int removeStudentFromDatabase(Student student){
+        int response = DatabaseHandler.removeStudent(student.getId(), student.getFirstName(), student.getLastName());
+        if(response == -1) MessageHandler.showWarningMessage(view, "Student does not exist in the database", "");
+        else if(response == -2 ) MessageHandler.showStandardDatabaseErrorMessage(view);
+        return response;
+    }
+    
+    public void removeStudentFromTable(int row){
+        view.getDefaultTableModel().removeRow(row);
     }
     
     public void dispose(){

@@ -61,7 +61,7 @@ public class LoginController {
     }
     
     private void databaseError(){
-        MessageHandler.showWarningMessage(null, "Database connection problem", "Database Error");
+        MessageHandler.showStandardDatabaseErrorMessage(view);
     }
     
     private void successfulLogin(int id, String username){

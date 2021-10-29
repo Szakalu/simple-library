@@ -84,6 +84,21 @@ public class DatabaseHandler {
             ps.executeUpdate();
             responseCode = 1;
         } catch (SQLException e) {
+            responseCode = -2;
+        }
+        return responseCode;
+    }
+    
+    public static int removeStudent(int id, String firstName, String lastName){
+        int responseCode = -1;
+        try(Connection con = DriverManager.getConnection(URL, LOGIN, PASSWORD);) {
+            PreparedStatement ps = con.prepareStatement("DELETE FROM students WHERE id = ? AND firstname = ? AND lastname = ?");
+            ps.setInt(1, id);
+            ps.setString(2, firstName);
+            ps.setString(3, lastName);
+            ps.executeUpdate();
+            responseCode = 1;
+        } catch (SQLException e) {
             e.printStackTrace();
             responseCode = -2;
         }

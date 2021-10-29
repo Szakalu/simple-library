@@ -16,4 +16,12 @@ public class MessageHandler {
     public static void showInfoMessage(JFrame parent, String messageText, String messageTitle){
         JOptionPane.showMessageDialog(parent, messageText, messageTitle, JOptionPane.INFORMATION_MESSAGE);
     }
+    
+    public static void showStandardDatabaseErrorMessage(JFrame parent){
+        MessageHandler.showWarningMessage(parent, "Database problem", "Database Error");
+    }
+    
+    public static int createYesNoOptionPane(JFrame parent, String messageText, String messageTitle){
+        return JOptionPane.showConfirmDialog(parent, messageText, messageTitle, JOptionPane.YES_NO_OPTION);
+    }
 }
